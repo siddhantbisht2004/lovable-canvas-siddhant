@@ -34,18 +34,6 @@ const HeroSection = () => {
       setIsEditing(false);
     }
   };
-  
-  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        const result = e.target?.result as string;
-        setAvatarImage(result);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
 
   return (
     <section id="hero" className="min-h-screen flex flex-col justify-center pt-20 pb-10">
@@ -62,33 +50,7 @@ const HeroSection = () => {
                   </AvatarFallback>
                 )}
               </Avatar>
-              <label 
-                htmlFor="avatar-upload" 
-                className="absolute bottom-0 right-0 bg-navy p-2 rounded-full border border-teal cursor-pointer"
-              >
-                <svg 
-                  xmlns="http://www.w3.org/2000/svg" 
-                  width="16" 
-                  height="16" 
-                  viewBox="0 0 24 24" 
-                  fill="none" 
-                  stroke="currentColor" 
-                  strokeWidth="2" 
-                  strokeLinecap="round" 
-                  strokeLinejoin="round" 
-                  className="text-teal"
-                >
-                  <path d="M5 12h14"></path>
-                  <path d="M12 5v14"></path>
-                </svg>
-                <input 
-                  id="avatar-upload" 
-                  type="file" 
-                  accept="image/*" 
-                  className="hidden" 
-                  onChange={handleImageUpload}
-                />
-              </label>
+              {/* Removed the avatar edit button as requested */}
             </div>
             <div className="text-center md:text-left">
               <p className="text-teal font-mono opacity-0 animate-fadeIn">Hi, I'm</p>
@@ -140,15 +102,21 @@ const HeroSection = () => {
                 {introVideo ? (
                   <div className="space-y-4">
                     <div className="rounded-md overflow-hidden">
-                      <AspectRatio ratio={16/9}>
-                        <iframe 
-                          src={getYoutubeEmbedUrl(introVideo)}
-                          title="Intro Video"
-                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                          allowFullScreen 
-                          className="w-full h-full"
-                        />
-                      </AspectRatio>
+                      {getYoutubeEmbedUrl(introVideo) ? (
+                        <AspectRatio ratio={16/9}>
+                          <iframe 
+                            src={getYoutubeEmbedUrl(introVideo)}
+                            title="Intro Video"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowFullScreen 
+                            className="w-full h-full"
+                          />
+                        </AspectRatio>
+                      ) : (
+                        <div className="bg-lightNavy p-4 text-center rounded">
+                          Invalid YouTube URL format
+                        </div>
+                      )}
                     </div>
                     <Button 
                       variant="outline" 

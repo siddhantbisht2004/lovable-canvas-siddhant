@@ -205,13 +205,16 @@ const ProfileSection = () => {
                               )}
                             </div>
                           )}
-                          <Button 
-                            variant="outline" 
-                            onClick={() => setSelectedVideoIndex(index)}
-                            className="border-teal text-teal hover:bg-teal/10"
-                          >
-                            {video.title || video.youtubeLink ? "Edit" : "Add Content"}
-                          </Button>
+                          {/* Removed the Edit button */}
+                          {!video.title && !video.youtubeLink && (
+                            <Button 
+                              variant="outline" 
+                              onClick={() => setSelectedVideoIndex(index)}
+                              className="border-teal text-teal hover:bg-teal/10"
+                            >
+                              Add Content
+                            </Button>
+                          )}
                         </div>
                       )}
                     </div>
@@ -292,13 +295,16 @@ const ProfileSection = () => {
                               )}
                             </div>
                           )}
-                          <Button 
-                            variant="outline" 
-                            onClick={() => setSelectedReviewIndex(index)}
-                            className="border-teal text-teal hover:bg-teal/10"
-                          >
-                            {review.title || review.youtubeLink ? "Edit" : "Add Content"}
-                          </Button>
+                          {/* Removed the Edit button */}
+                          {!review.title && !review.youtubeLink && (
+                            <Button 
+                              variant="outline" 
+                              onClick={() => setSelectedReviewIndex(index)}
+                              className="border-teal text-teal hover:bg-teal/10"
+                            >
+                              Add Content
+                            </Button>
+                          )}
                         </div>
                       )}
                     </div>
@@ -379,13 +385,16 @@ const ProfileSection = () => {
                               )}
                             </div>
                           )}
-                          <Button 
-                            variant="outline" 
-                            onClick={() => setSelectedPersonalVideoIndex(index)}
-                            className="border-teal text-teal hover:bg-teal/10"
-                          >
-                            {video.title || video.youtubeLink ? "Edit" : "Add Content"}
-                          </Button>
+                          {/* Removed the Edit button */}
+                          {!video.title && !video.youtubeLink && (
+                            <Button 
+                              variant="outline" 
+                              onClick={() => setSelectedPersonalVideoIndex(index)}
+                              className="border-teal text-teal hover:bg-teal/10"
+                            >
+                              Add Content
+                            </Button>
+                          )}
                         </div>
                       )}
                     </div>
