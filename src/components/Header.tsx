@@ -1,6 +1,6 @@
 
 import { useState, useEffect } from "react";
-import { useMediaQuery } from "@/hooks/use-mobile";
+import { useIsMobile } from "@/hooks/use-mobile";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -23,7 +23,7 @@ const navItems = [
 
 const Header = () => {
   const [isTop, setIsTop] = useState(true);
-  const isMobile = useMediaQuery("(max-width: 768px)");
+  const isMobile = useIsMobile();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
