@@ -13,67 +13,44 @@ interface Project {
   github: string;
   demo: string;
   category: string[];
+  status: "completed" | "ongoing";
 }
 
 const ProjectsSection = () => {
   const projects: Project[] = [
     {
-      title: "Portfolio Website",
-      description: "A personal portfolio website built with React and Tailwind CSS. Features smooth scrolling, responsive design, and animated elements.",
-      image: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3",
-      tags: ["React", "Tailwind CSS", "JavaScript"],
+      title: "GTK-based GUI Text Editor",
+      description: "A text editor with a graphical user interface built using GTK and C programming language, featuring syntax highlighting and file management capabilities.",
+      image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3",
+      tags: ["C", "GTK", "GUI", "Text Editor"],
       github: "https://github.com",
       demo: "https://example.com",
-      category: ["Web", "Frontend"]
+      category: ["Desktop", "C"],
+      status: "completed"
     },
     {
-      title: "E-Commerce Platform",
-      description: "A full-stack e-commerce application with product catalog, cart functionality, user authentication, and payment processing.",
-      image: "https://images.unsplash.com/photo-1557821552-17105176677c?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.0.3",
-      tags: ["React", "Node.js", "MongoDB", "Express", "Redux"],
+      title: "Intelligent Chatbot",
+      description: "A machine learning-powered chatbot that uses natural language processing to understand and respond to user queries with contextual awareness.",
+      image: "https://images.unsplash.com/photo-1531746790731-6c087fecd65a?q=80&w=2006&auto=format&fit=crop&ixlib=rb-4.0.3",
+      tags: ["Machine Learning", "NLP", "Python", "AI"],
       github: "https://github.com",
       demo: "https://example.com",
-      category: ["Web", "Full Stack"]
+      category: ["AI", "ML"],
+      status: "completed"
     },
     {
-      title: "Task Management App",
-      description: "A productivity application that helps users organize tasks, set priorities, and track progress with a clean, intuitive interface.",
-      image: "https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?q=80&w=2072&auto=format&fit=crop&ixlib=rb-4.0.3",
-      tags: ["React", "TypeScript", "Firebase", "Material UI"],
+      title: "OWASP Top 10 Vulnerability Detector",
+      description: "A security tool that scans web applications to identify and report potential vulnerabilities based on the OWASP Top 10 security risks.",
+      image: "https://images.unsplash.com/photo-1563206767-5b18f218e8de?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3",
+      tags: ["Security", "OWASP", "Web", "Scanner"],
       github: "https://github.com",
       demo: "https://example.com",
-      category: ["Web", "Frontend"]
-    },
-    {
-      title: "Weather Dashboard",
-      description: "A weather application that displays current conditions and forecasts for any location, with beautiful visualizations of weather data.",
-      image: "https://images.unsplash.com/photo-1580910051074-3eb694886505?q=80&w=2065&auto=format&fit=crop&ixlib=rb-4.0.3",
-      tags: ["React", "OpenWeather API", "Chart.js", "CSS"],
-      github: "https://github.com",
-      demo: "https://example.com",
-      category: ["Web", "API"]
-    },
-    {
-      title: "Mobile Chat Application",
-      description: "A real-time messaging app built with React Native, featuring read receipts, typing indicators, and push notifications.",
-      image: "https://images.unsplash.com/photo-1529336953128-a85760f58cb5?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3",
-      tags: ["React Native", "Firebase", "Socket.io"],
-      github: "https://github.com",
-      demo: "https://example.com",
-      category: ["Mobile", "Full Stack"]
-    },
-    {
-      title: "Content Management System",
-      description: "A custom CMS built for managing blog content with rich text editing, media management, and scheduled publishing.",
-      image: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?q=80&w=2072&auto=format&fit=crop&ixlib=rb-4.0.3",
-      tags: ["Next.js", "MongoDB", "AWS S3", "TailwindCSS"],
-      github: "https://github.com",
-      demo: "https://example.com",
-      category: ["Web", "Full Stack"]
-    },
+      category: ["Security", "Web"],
+      status: "ongoing"
+    }
   ];
 
-  const categories = ["All", "Web", "Mobile", "Frontend", "Full Stack", "API"];
+  const categories = ["All", "Desktop", "Web", "AI", "ML", "Security", "C"];
   const [filter, setFilter] = useState("All");
 
   const filteredProjects = filter === "All" 
@@ -116,7 +93,12 @@ const ProjectsSection = () => {
                 />
               </div>
               <CardHeader>
-                <CardTitle className="text-lightestSlate">{project.title}</CardTitle>
+                <div className="flex justify-between items-start">
+                  <CardTitle className="text-lightestSlate">{project.title}</CardTitle>
+                  <Badge className={project.status === "completed" ? "bg-green-500/20 text-green-400" : "bg-amber-500/20 text-amber-400"}>
+                    {project.status}
+                  </Badge>
+                </div>
                 <CardDescription className="text-slate line-clamp-2">{project.description}</CardDescription>
               </CardHeader>
               <CardContent>

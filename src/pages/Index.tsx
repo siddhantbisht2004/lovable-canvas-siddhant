@@ -6,12 +6,13 @@ import SkillsSection from "@/components/SkillsSection";
 import ProjectsSection from "@/components/ProjectsSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
+import ProfileSection from "@/components/ProfileSection";
 import { useEffect } from "react";
 
 const Index = () => {
   // Update the page title
   useEffect(() => {
-    document.title = "Siddhant Bishte | Portfolio";
+    document.title = "Siddhant Bisht | Portfolio";
   }, []);
 
   return (
@@ -22,6 +23,7 @@ const Index = () => {
         <AboutSection />
         <SkillsSection />
         <ProjectsSection />
+        <ProfileSection />
         <ContactSection />
       </main>
       <Footer />
