@@ -41,16 +41,15 @@ const HeroSection = () => {
         <div className="max-w-3xl mx-auto space-y-6">
           <div className="flex flex-col md:flex-row items-center gap-8 mb-8">
             <div className="relative">
-              <Avatar className="w-40 h-40 border-4 border-teal">
+              <Avatar className="w-40 h-40 border-4 border-teal rounded-full overflow-hidden">
                 {avatarImage ? (
-                  <AvatarImage src={avatarImage} alt="Profile" className="object-cover" />
+                  <AvatarImage src={avatarImage} alt="Profile" className="object-cover w-full h-full" />
                 ) : (
-                  <AvatarFallback className="bg-lightNavy text-4xl text-teal">
+                  <AvatarFallback className="bg-lightNavy text-4xl text-teal w-full h-full flex items-center justify-center">
                     SB
                   </AvatarFallback>
                 )}
               </Avatar>
-              {/* Removed the avatar edit button as requested */}
             </div>
             <div className="text-center md:text-left">
               <p className="text-teal font-mono opacity-0 animate-fadeIn">Hi, I'm</p>

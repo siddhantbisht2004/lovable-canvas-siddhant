@@ -1,8 +1,7 @@
-
 import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Youtube, Video, ListVideo, Clapperboard } from "lucide-react";
+import { Youtube, Video, ListVideo, Clapperboard, Star } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
@@ -22,11 +21,18 @@ const ProfileSection = () => {
     youtubeLink: "" 
   })));
   
-  const [movieReviews, setMovieReviews] = useLocalStorage<VideoContent[]>("movie-reviews", Array(4).fill(null).map((_, i) => ({ 
-    id: `review-${i}`, 
-    title: "", 
-    youtubeLink: "" 
-  })));
+  const [movieReviews, setMovieReviews] = useLocalStorage<VideoContent[]>("movie-reviews", [
+    { 
+      id: `review-0`, 
+      title: "12 Angry Men (1957)", 
+      youtubeLink: "https://www.youtube.com/watch?v=_13J_9B5jEk" 
+    },
+    ...Array(3).fill(null).map((_, i) => ({ 
+      id: `review-${i+1}`, 
+      title: "", 
+      youtubeLink: "" 
+    }))
+  ]);
   
   const [personalVideos, setPersonalVideos] = useLocalStorage<VideoContent[]>("personal-videos", Array(2).fill(null).map((_, i) => ({ 
     id: `personal-video-${i}`, 
@@ -205,7 +211,6 @@ const ProfileSection = () => {
                               )}
                             </div>
                           )}
-                          {/* Removed the Edit button */}
                           {!video.title && !video.youtubeLink && (
                             <Button 
                               variant="outline" 
@@ -229,7 +234,7 @@ const ProfileSection = () => {
               <CardContent className="pt-6">
                 <div className="grid gap-6">
                   {movieReviews.map((review, index) => (
-                    <div key={review.id} className="border border-lightestNavy p-4 rounded-md">
+                    <div key={review.id} className={`border border-lightestNavy p-4 rounded-md ${review.title === '12 Angry Men (1957)' ? 'ring-2 ring-teal' : ''}`}>
                       <h3 className="text-lg font-medium flex items-center gap-2 text-lightestSlate mb-4">
                         <Clapperboard className="h-5 w-5 text-teal" /> Review {index + 1}
                       </h3>
@@ -265,7 +270,32 @@ const ProfileSection = () => {
                         </div>
                       ) : (
                         <div className="space-y-4">
-                          {review.title && <p><span className="text-teal font-medium">Movie:</span> {review.title}</p>}
+                          {review.title && (
+                            <div className={`${review.title === '12 Angry Men (1957)' ? 'bg-lightestNavy/30 p-3 rounded-lg' : ''}`}>
+                              <div className="flex items-center gap-2 mb-2">
+                                {review.title === '12 Angry Men (1957)' && (
+                                  <div className="flex text-yellow-400">
+                                    <Star className="fill-yellow-400 h-5 w-5" />
+                                    <Star className="fill-yellow-400 h-5 w-5" />
+                                    <Star className="fill-yellow-400 h-5 w-5" />
+                                    <Star className="fill-yellow-400 h-5 w-5" />
+                                    <Star className="fill-yellow-400 h-5 w-5" />
+                                  </div>
+                                )}
+                                <p className={`${review.title === '12 Angry Men (1957)' ? 'text-lightestSlate font-semibold text-lg' : ''}`}>
+                                  {review.title === '12 Angry Men (1957)' ? review.title : (
+                                    <><span className="text-teal font-medium">Movie:</span> {review.title}</>
+                                  )}
+                                </p>
+                              </div>
+                              {review.title === '12 Angry Men (1957)' && (
+                                <p className="text-slate italic mb-3">
+                                  "A classic courtroom drama masterpiece that examines human prejudice and the power of reasonable doubt."
+                                </p>
+                              )}
+                            </div>
+                          )}
+                          
                           {review.youtubeLink && (
                             <div className="space-y-4">
                               <div className="flex items-center gap-2">
@@ -295,7 +325,7 @@ const ProfileSection = () => {
                               )}
                             </div>
                           )}
-                          {/* Removed the Edit button */}
+                          
                           {!review.title && !review.youtubeLink && (
                             <Button 
                               variant="outline" 
@@ -385,7 +415,6 @@ const ProfileSection = () => {
                               )}
                             </div>
                           )}
-                          {/* Removed the Edit button */}
                           {!video.title && !video.youtubeLink && (
                             <Button 
                               variant="outline" 
