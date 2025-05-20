@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -14,97 +15,58 @@ interface VideoContent {
 }
 
 const ProfileSection = () => {
-  // Use local storage for persistence
-  const [videos, setVideos] = useLocalStorage<VideoContent[]>("profile-videos", Array(20).fill(null).map((_, i) => ({ 
-    id: `video-${i}`, 
-    title: "", 
-    youtubeLink: "" 
-  })));
+  // Define the video content for each section
+  const defaultProfilingVideos: VideoContent[] = [
+    { id: "video-0", title: "Q.1: Write your career objective.", youtubeLink: "https://youtube.com/shorts/HLOlqDDvXf4" },
+    { id: "video-1", title: "Q.2: Why do you want to be an engineer? Elaborate reasons.", youtubeLink: "https://youtube.com/shorts/l5qI5TYSP4E" },
+    { id: "video-2", title: "Q.3: Write about projects or internship you have done/ are doing along with the learning.", youtubeLink: "https://youtube.com/shorts/-zFJy6kbqdg" },
+    { id: "video-3", title: "Q.4: What would you consider a significant achievement in your life and why?", youtubeLink: "https://youtube.com/shorts/5RSkpi7Fot8" },
+    { id: "video-4", title: "Q.5: Write about a failure of yours which you consider to share. What have you learned from it?", youtubeLink: "https://youtube.com/shorts/1nc7nxbpi6M" },
+    { id: "video-5", title: "Q.6: What are your strengths? Write one or two instances where you have demonstrated your strengths.", youtubeLink: "https://youtube.com/shorts/dOaFwOjlCi4" },
+    { id: "video-6", title: "Q.7: Write about your weaknesses. What are you doing to overcome your weaknesses?", youtubeLink: "https://youtube.com/shorts/8UL3Fi_kj4g" },
+    { id: "video-7", title: "Q.8: What is the most difficult moment that you have faced in your life so far? What qualities helped you to overcome the moment?", youtubeLink: "https://youtube.com/shorts/M8fOeOoj11k" },
+    { id: "video-8", title: "Q.9: Apart from academics, what else are you interested in? Make a separate list in terms of extracurricular activities, sports and any other interests.", youtubeLink: "https://youtube.com/shorts/XLW8v6IaV-k" },
+    { id: "video-9", title: "Q.10: Give an example of an area, concept or thing that you are absolutely passionate about.", youtubeLink: "https://youtube.com/shorts/t59FdKd-NBk" },
+    { id: "video-10", title: "Q.11: Describe yourself as an individual in 5 lines.", youtubeLink: "https://youtube.com/shorts/L9dkvn_N_ow" },
+    { id: "video-11", title: "Q.12: What kinds of people do you enjoy working with?", youtubeLink: "https://youtube.com/shorts/L_96w-StH54" },
+    { id: "video-12", title: "Q.13: What kinds of people you don't want to work with? What would you do if they became your senior in your dream job?", youtubeLink: "https://youtube.com/shorts/0bOHWYObq2Q" },
+    { id: "video-13", title: "Q.14: What do you expect from your first job? Prioritize and write in order.", youtubeLink: "https://youtube.com/shorts/IN453ytcQQA" },
+    { id: "video-14", title: "Q.15: In the past year, what have you been dissatisfied about in your performance?", youtubeLink: "https://youtube.com/shorts/MjUzsOFgqwM" },
+    { id: "video-15", title: "Q.16: Rate yourself out of 5 in verbal communication. What are you doing to improve your communication skills?", youtubeLink: "https://youtube.com/shorts/jXWPZmOWZz0" },
+    { id: "video-16", title: "Q.17: Who is your role model? What qualities of that person you would like to see in your personality and why?", youtubeLink: "https://youtube.com/shorts/btTCxf4iOCY" },
+    { id: "video-17", title: "Q.18: Write a few lines about your friends. Do you think they help/ may help you in achieving your goals? If yes, how? If no, why do you accompany them?", youtubeLink: "https://youtube.com/shorts/xSX6UPmKSJE" },
+    { id: "video-18", title: "Q.19: Write 3 leadership qualities. How many do you possess? Write an instance where you have applied those qualities.", youtubeLink: "https://youtube.com/shorts/NLyUU5916V4" },
+    { id: "video-19", title: "Q.20: So finally, tell us something more about yourself or introduce yourself.", youtubeLink: "https://youtube.com/shorts/yI-7blE_MSc" }
+  ];
   
-  const [movieReviews, setMovieReviews] = useLocalStorage<VideoContent[]>("movie-reviews", [
-    { 
-      id: `review-0`, 
-      title: "12 Angry Men (1957)", 
-      youtubeLink: "https://www.youtube.com/watch?v=_13J_9B5jEk" 
-    },
-    ...Array(3).fill(null).map((_, i) => ({ 
-      id: `review-${i+1}`, 
-      title: "", 
-      youtubeLink: "" 
-    }))
-  ]);
+  const defaultMovieReviews: VideoContent[] = [
+    { id: "review-0", title: "12 Angry Men (1957)", youtubeLink: "https://www.youtube.com/watch?v=_13J_9B5jEk" },
+    { id: "review-1", title: "1) Your Favourite Dialogue and Why?", youtubeLink: "https://youtube.com/shorts/aA56g1iUZWE" },
+    { id: "review-2", title: "2) Your personal Review.", youtubeLink: "https://youtube.com/shorts/kM9pUTVSsiE" },
+    { id: "review-3", title: "3) Learning to take away from the movie.", youtubeLink: "https://youtube.com/shorts/3hTFoX4HQKw" },
+    { id: "review-4", title: "4) Related concepts you've learned in the classroom.", youtubeLink: "https://youtube.com/shorts/RWAbeAl-awY" }
+  ];
   
-  const [personalVideos, setPersonalVideos] = useLocalStorage<VideoContent[]>("personal-videos", Array(2).fill(null).map((_, i) => ({ 
-    id: `personal-video-${i}`, 
-    title: "", 
-    youtubeLink: "" 
-  })));
+  const defaultPersonalVideos: VideoContent[] = [
+    { id: "personal-video-0", title: "Group Discussion", youtubeLink: "https://youtu.be/JtaOw6ev2to" },
+    { id: "personal-video-1", title: "Presentation", youtubeLink: "https://youtu.be/S2qoYS7FX4k" }
+  ];
 
-  const [newVideoTitle, setNewVideoTitle] = useState("");
-  const [newVideoLink, setNewVideoLink] = useState("");
-  const [newReviewTitle, setNewReviewTitle] = useState("");
-  const [newReviewLink, setNewReviewLink] = useState("");
-  const [newPersonalVideoTitle, setNewPersonalVideoTitle] = useState("");
-  const [newPersonalVideoLink, setNewPersonalVideoLink] = useState("");
-  
+  // Use local storage for persistence
+  const [videos, setVideos] = useLocalStorage<VideoContent[]>("profile-videos", defaultProfilingVideos);
+  const [movieReviews, setMovieReviews] = useLocalStorage<VideoContent[]>("movie-reviews", defaultMovieReviews);
+  const [personalVideos, setPersonalVideos] = useLocalStorage<VideoContent[]>("personal-videos", defaultPersonalVideos);
+
   const [selectedVideoIndex, setSelectedVideoIndex] = useState<number | null>(null);
   const [selectedReviewIndex, setSelectedReviewIndex] = useState<number | null>(null);
   const [selectedPersonalVideoIndex, setSelectedPersonalVideoIndex] = useState<number | null>(null);
-
-  const updateVideo = (index: number) => {
-    if (newVideoTitle.trim() !== "" || newVideoLink.trim() !== "") {
-      const updatedVideos = [...videos];
-      if (newVideoTitle.trim() !== "") {
-        updatedVideos[index].title = newVideoTitle;
-      }
-      if (newVideoLink.trim() !== "") {
-        updatedVideos[index].youtubeLink = newVideoLink;
-      }
-      setVideos(updatedVideos);
-      setNewVideoTitle("");
-      setNewVideoLink("");
-      setSelectedVideoIndex(null);
-    }
-  };
-
-  const updateReview = (index: number) => {
-    if (newReviewTitle.trim() !== "" || newReviewLink.trim() !== "") {
-      const updatedReviews = [...movieReviews];
-      if (newReviewTitle.trim() !== "") {
-        updatedReviews[index].title = newReviewTitle;
-      }
-      if (newReviewLink.trim() !== "") {
-        updatedReviews[index].youtubeLink = newReviewLink;
-      }
-      setMovieReviews(updatedReviews);
-      setNewReviewTitle("");
-      setNewReviewLink("");
-      setSelectedReviewIndex(null);
-    }
-  };
-  
-  const updatePersonalVideo = (index: number) => {
-    if (newPersonalVideoTitle.trim() !== "" || newPersonalVideoLink.trim() !== "") {
-      const updatedPersonalVideos = [...personalVideos];
-      if (newPersonalVideoTitle.trim() !== "") {
-        updatedPersonalVideos[index].title = newPersonalVideoTitle;
-      }
-      if (newPersonalVideoLink.trim() !== "") {
-        updatedPersonalVideos[index].youtubeLink = newPersonalVideoLink;
-      }
-      setPersonalVideos(updatedPersonalVideos);
-      setNewPersonalVideoTitle("");
-      setNewPersonalVideoLink("");
-      setSelectedPersonalVideoIndex(null);
-    }
-  };
   
   // Helper function to extract YouTube ID from URL
   const getYoutubeEmbedUrl = (url: string) => {
     if (!url) return null;
     
-    // Match patterns for YouTube URLs
-    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+    // Match patterns for YouTube shorts and regular videos
+    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|shorts\/|watch\?v=|\&v=)([^#\&\?]*).*/;
     const match = url.match(regExp);
     
     if (match && match[2].length === 11) {
@@ -150,78 +112,38 @@ const ProfileSection = () => {
                         <Video className="h-5 w-5 text-teal" /> Video {index + 1}
                       </h3>
                       
-                      {selectedVideoIndex === index ? (
-                        <div className="space-y-4">
-                          <div>
-                            <label className="text-sm text-slate block mb-2">Title:</label>
-                            <Input 
-                              placeholder={video.title || "Enter video title"}
-                              value={newVideoTitle}
-                              onChange={(e) => setNewVideoTitle(e.target.value)}
-                              className="bg-navy border-lightestNavy"
-                            />
-                          </div>
-                          <div>
-                            <label className="text-sm text-slate block mb-2">YouTube Link:</label>
-                            <Input 
-                              placeholder={video.youtubeLink || "Paste YouTube link"}
-                              value={newVideoLink}
-                              onChange={(e) => setNewVideoLink(e.target.value)}
-                              className="bg-navy border-lightestNavy"
-                            />
-                          </div>
-                          <div className="flex gap-2">
-                            <Button onClick={() => updateVideo(index)} className="bg-teal text-navy hover:bg-teal/90">
-                              Save
-                            </Button>
-                            <Button variant="outline" onClick={() => setSelectedVideoIndex(null)} className="border-lightestNavy">
-                              Cancel
-                            </Button>
-                          </div>
-                        </div>
-                      ) : (
-                        <div className="space-y-4">
-                          {video.title && <p><span className="text-teal font-medium">Title:</span> {video.title}</p>}
-                          {video.youtubeLink && (
-                            <div className="space-y-4">
-                              <div className="flex items-center gap-2">
-                                <Youtube className="h-5 w-5 text-red-500" />
-                                <a 
-                                  href={video.youtubeLink.startsWith('http') ? video.youtubeLink : `https://${video.youtubeLink}`}
-                                  target="_blank" 
-                                  rel="noopener noreferrer"
-                                  className="text-teal hover:underline break-all"
-                                >
-                                  {video.youtubeLink}
-                                </a>
-                              </div>
-                              
-                              {getYoutubeEmbedUrl(video.youtubeLink) && (
-                                <div className="rounded-md overflow-hidden">
-                                  <AspectRatio ratio={16/9}>
-                                    <iframe 
-                                      src={getYoutubeEmbedUrl(video.youtubeLink)}
-                                      title={video.title || `Video ${index + 1}`}
-                                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                                      allowFullScreen 
-                                      className="w-full h-full"
-                                    />
-                                  </AspectRatio>
-                                </div>
-                              )}
+                      <div className="space-y-4">
+                        {video.title && <p><span className="text-teal font-medium">Title:</span> {video.title}</p>}
+                        {video.youtubeLink && (
+                          <div className="space-y-4">
+                            <div className="flex items-center gap-2">
+                              <Youtube className="h-5 w-5 text-red-500" />
+                              <a 
+                                href={video.youtubeLink.startsWith('http') ? video.youtubeLink : `https://${video.youtubeLink}`}
+                                target="_blank" 
+                                rel="noopener noreferrer"
+                                className="text-teal hover:underline break-all"
+                              >
+                                {video.youtubeLink}
+                              </a>
                             </div>
-                          )}
-                          {!video.title && !video.youtubeLink && (
-                            <Button 
-                              variant="outline" 
-                              onClick={() => setSelectedVideoIndex(index)}
-                              className="border-teal text-teal hover:bg-teal/10"
-                            >
-                              Add Content
-                            </Button>
-                          )}
-                        </div>
-                      )}
+                            
+                            {getYoutubeEmbedUrl(video.youtubeLink) && (
+                              <div className="rounded-md overflow-hidden">
+                                <AspectRatio ratio={16/9}>
+                                  <iframe 
+                                    src={getYoutubeEmbedUrl(video.youtubeLink)}
+                                    title={video.title || `Video ${index + 1}`}
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                    allowFullScreen 
+                                    className="w-full h-full"
+                                  />
+                                </AspectRatio>
+                              </div>
+                            )}
+                          </div>
+                        )}
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -239,104 +161,63 @@ const ProfileSection = () => {
                         <Clapperboard className="h-5 w-5 text-teal" /> Review {index + 1}
                       </h3>
                       
-                      {selectedReviewIndex === index ? (
-                        <div className="space-y-4">
-                          <div>
-                            <label className="text-sm text-slate block mb-2">Movie Title:</label>
-                            <Input 
-                              placeholder={review.title || "Enter movie title"}
-                              value={newReviewTitle}
-                              onChange={(e) => setNewReviewTitle(e.target.value)}
-                              className="bg-navy border-lightestNavy"
-                            />
-                          </div>
-                          <div>
-                            <label className="text-sm text-slate block mb-2">YouTube Review Link:</label>
-                            <Input 
-                              placeholder={review.youtubeLink || "Paste YouTube link"}
-                              value={newReviewLink}
-                              onChange={(e) => setNewReviewLink(e.target.value)}
-                              className="bg-navy border-lightestNavy"
-                            />
-                          </div>
-                          <div className="flex gap-2">
-                            <Button onClick={() => updateReview(index)} className="bg-teal text-navy hover:bg-teal/90">
-                              Save
-                            </Button>
-                            <Button variant="outline" onClick={() => setSelectedReviewIndex(null)} className="border-lightestNavy">
-                              Cancel
-                            </Button>
-                          </div>
-                        </div>
-                      ) : (
-                        <div className="space-y-4">
-                          {review.title && (
-                            <div className={`${review.title === '12 Angry Men (1957)' ? 'bg-lightestNavy/30 p-3 rounded-lg' : ''}`}>
-                              <div className="flex items-center gap-2 mb-2">
-                                {review.title === '12 Angry Men (1957)' && (
-                                  <div className="flex text-yellow-400">
-                                    <Star className="fill-yellow-400 h-5 w-5" />
-                                    <Star className="fill-yellow-400 h-5 w-5" />
-                                    <Star className="fill-yellow-400 h-5 w-5" />
-                                    <Star className="fill-yellow-400 h-5 w-5" />
-                                    <Star className="fill-yellow-400 h-5 w-5" />
-                                  </div>
-                                )}
-                                <p className={`${review.title === '12 Angry Men (1957)' ? 'text-lightestSlate font-semibold text-lg' : ''}`}>
-                                  {review.title === '12 Angry Men (1957)' ? review.title : (
-                                    <><span className="text-teal font-medium">Movie:</span> {review.title}</>
-                                  )}
-                                </p>
-                              </div>
+                      <div className="space-y-4">
+                        {review.title && (
+                          <div className={`${review.title === '12 Angry Men (1957)' ? 'bg-lightestNavy/30 p-3 rounded-lg' : ''}`}>
+                            <div className="flex items-center gap-2 mb-2">
                               {review.title === '12 Angry Men (1957)' && (
-                                <p className="text-slate italic mb-3">
-                                  "A classic courtroom drama masterpiece that examines human prejudice and the power of reasonable doubt."
-                                </p>
-                              )}
-                            </div>
-                          )}
-                          
-                          {review.youtubeLink && (
-                            <div className="space-y-4">
-                              <div className="flex items-center gap-2">
-                                <Youtube className="h-5 w-5 text-red-500" />
-                                <a 
-                                  href={review.youtubeLink.startsWith('http') ? review.youtubeLink : `https://${review.youtubeLink}`}
-                                  target="_blank" 
-                                  rel="noopener noreferrer"
-                                  className="text-teal hover:underline break-all"
-                                >
-                                  {review.youtubeLink}
-                                </a>
-                              </div>
-                              
-                              {getYoutubeEmbedUrl(review.youtubeLink) && (
-                                <div className="rounded-md overflow-hidden">
-                                  <AspectRatio ratio={16/9}>
-                                    <iframe 
-                                      src={getYoutubeEmbedUrl(review.youtubeLink)}
-                                      title={review.title || `Review ${index + 1}`}
-                                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                                      allowFullScreen 
-                                      className="w-full h-full"
-                                    />
-                                  </AspectRatio>
+                                <div className="flex text-yellow-400">
+                                  <Star className="fill-yellow-400 h-5 w-5" />
+                                  <Star className="fill-yellow-400 h-5 w-5" />
+                                  <Star className="fill-yellow-400 h-5 w-5" />
+                                  <Star className="fill-yellow-400 h-5 w-5" />
+                                  <Star className="fill-yellow-400 h-5 w-5" />
                                 </div>
                               )}
+                              <p className={`${review.title === '12 Angry Men (1957)' ? 'text-lightestSlate font-semibold text-lg' : ''}`}>
+                                {review.title === '12 Angry Men (1957)' ? review.title : (
+                                  <><span className="text-teal font-medium">Movie:</span> {review.title}</>
+                                )}
+                              </p>
                             </div>
-                          )}
-                          
-                          {!review.title && !review.youtubeLink && (
-                            <Button 
-                              variant="outline" 
-                              onClick={() => setSelectedReviewIndex(index)}
-                              className="border-teal text-teal hover:bg-teal/10"
-                            >
-                              Add Content
-                            </Button>
-                          )}
-                        </div>
-                      )}
+                            {review.title === '12 Angry Men (1957)' && (
+                              <p className="text-slate italic mb-3">
+                                "A classic courtroom drama masterpiece that examines human prejudice and the power of reasonable doubt."
+                              </p>
+                            )}
+                          </div>
+                        )}
+                        
+                        {review.youtubeLink && (
+                          <div className="space-y-4">
+                            <div className="flex items-center gap-2">
+                              <Youtube className="h-5 w-5 text-red-500" />
+                              <a 
+                                href={review.youtubeLink.startsWith('http') ? review.youtubeLink : `https://${review.youtubeLink}`}
+                                target="_blank" 
+                                rel="noopener noreferrer"
+                                className="text-teal hover:underline break-all"
+                              >
+                                {review.youtubeLink}
+                              </a>
+                            </div>
+                            
+                            {getYoutubeEmbedUrl(review.youtubeLink) && (
+                              <div className="rounded-md overflow-hidden">
+                                <AspectRatio ratio={16/9}>
+                                  <iframe 
+                                    src={getYoutubeEmbedUrl(review.youtubeLink)}
+                                    title={review.title || `Review ${index + 1}`}
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                    allowFullScreen 
+                                    className="w-full h-full"
+                                  />
+                                </AspectRatio>
+                              </div>
+                            )}
+                          </div>
+                        )}
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -354,78 +235,38 @@ const ProfileSection = () => {
                         <Video className="h-5 w-5 text-teal" /> My Video {index + 1}
                       </h3>
                       
-                      {selectedPersonalVideoIndex === index ? (
-                        <div className="space-y-4">
-                          <div>
-                            <label className="text-sm text-slate block mb-2">Title:</label>
-                            <Input 
-                              placeholder={video.title || "Enter video title"}
-                              value={newPersonalVideoTitle}
-                              onChange={(e) => setNewPersonalVideoTitle(e.target.value)}
-                              className="bg-navy border-lightestNavy"
-                            />
-                          </div>
-                          <div>
-                            <label className="text-sm text-slate block mb-2">YouTube Link:</label>
-                            <Input 
-                              placeholder={video.youtubeLink || "Paste YouTube link"}
-                              value={newPersonalVideoLink}
-                              onChange={(e) => setNewPersonalVideoLink(e.target.value)}
-                              className="bg-navy border-lightestNavy"
-                            />
-                          </div>
-                          <div className="flex gap-2">
-                            <Button onClick={() => updatePersonalVideo(index)} className="bg-teal text-navy hover:bg-teal/90">
-                              Save
-                            </Button>
-                            <Button variant="outline" onClick={() => setSelectedPersonalVideoIndex(null)} className="border-lightestNavy">
-                              Cancel
-                            </Button>
-                          </div>
-                        </div>
-                      ) : (
-                        <div className="space-y-4">
-                          {video.title && <p><span className="text-teal font-medium">Title:</span> {video.title}</p>}
-                          {video.youtubeLink && (
-                            <div className="space-y-4">
-                              <div className="flex items-center gap-2">
-                                <Youtube className="h-5 w-5 text-red-500" />
-                                <a 
-                                  href={video.youtubeLink.startsWith('http') ? video.youtubeLink : `https://${video.youtubeLink}`}
-                                  target="_blank" 
-                                  rel="noopener noreferrer"
-                                  className="text-teal hover:underline break-all"
-                                >
-                                  {video.youtubeLink}
-                                </a>
-                              </div>
-                              
-                              {getYoutubeEmbedUrl(video.youtubeLink) && (
-                                <div className="rounded-md overflow-hidden">
-                                  <AspectRatio ratio={16/9}>
-                                    <iframe 
-                                      src={getYoutubeEmbedUrl(video.youtubeLink)}
-                                      title={video.title || `Video ${index + 1}`}
-                                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                                      allowFullScreen 
-                                      className="w-full h-full"
-                                    />
-                                  </AspectRatio>
-                                </div>
-                              )}
+                      <div className="space-y-4">
+                        {video.title && <p><span className="text-teal font-medium">Title:</span> {video.title}</p>}
+                        {video.youtubeLink && (
+                          <div className="space-y-4">
+                            <div className="flex items-center gap-2">
+                              <Youtube className="h-5 w-5 text-red-500" />
+                              <a 
+                                href={video.youtubeLink.startsWith('http') ? video.youtubeLink : `https://${video.youtubeLink}`}
+                                target="_blank" 
+                                rel="noopener noreferrer"
+                                className="text-teal hover:underline break-all"
+                              >
+                                {video.youtubeLink}
+                              </a>
                             </div>
-                          )}
-                          {!video.title && !video.youtubeLink && (
-                            <Button 
-                              variant="outline" 
-                              onClick={() => setSelectedPersonalVideoIndex(index)}
-                              className="border-teal text-teal hover:bg-teal/10"
-                            >
-                              Add Content
-                            </Button>
-                          )}
-                        </div>
-                      )}
+                            
+                            {getYoutubeEmbedUrl(video.youtubeLink) && (
+                              <div className="rounded-md overflow-hidden">
+                                <AspectRatio ratio={16/9}>
+                                  <iframe 
+                                    src={getYoutubeEmbedUrl(video.youtubeLink)}
+                                    title={video.title || `Video ${index + 1}`}
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                    allowFullScreen 
+                                    className="w-full h-full"
+                                  />
+                                </AspectRatio>
+                              </div>
+                            )}
+                          </div>
+                        )}
+                      </div>
                     </div>
                   ))}
                 </div>

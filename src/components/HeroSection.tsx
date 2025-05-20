@@ -17,7 +17,7 @@ const HeroSection = () => {
     if (!url) return null;
     
     // Match patterns for YouTube URLs
-    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|shorts\/|watch\?v=|\&v=)([^#\&\?]*).*/;
     const match = url.match(regExp);
     
     if (match && match[2].length === 11) {
@@ -43,7 +43,7 @@ const HeroSection = () => {
             <div className="relative">
               <Avatar className="w-40 h-40 border-4 border-teal rounded-full overflow-hidden">
                 {avatarImage ? (
-                  <AvatarImage src={avatarImage} alt="Profile" className="object-cover w-full h-full" />
+                  <AvatarImage src={avatarImage} alt="Profile" className="object-cover w-full h-full rounded-full" />
                 ) : (
                   <AvatarFallback className="bg-lightNavy text-4xl text-teal w-full h-full flex items-center justify-center">
                     SB
