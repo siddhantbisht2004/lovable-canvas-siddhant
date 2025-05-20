@@ -7,10 +7,10 @@ import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 
 const HeroSection = () => {
-  const [introVideo, setIntroVideo] = useLocalStorage<string>("intro-video", "");
+  const [introVideo, setIntroVideo] = useLocalStorage<string>("intro-video", "https://youtu.be/4BSWtmFG_2k?si=NonvXa8e5mZXZHpV");
   const [newIntroVideo, setNewIntroVideo] = useState("");
   const [isEditing, setIsEditing] = useState(false);
-  const [avatarImage, setAvatarImage] = useLocalStorage<string>("avatar-image", "");
+  const [avatarImage, setAvatarImage] = useLocalStorage<string>("avatar-image", "https://ibb.co/mFRc1Jj");
   
   // Helper function to extract YouTube ID from URL
   const getYoutubeEmbedUrl = (url: string) => {
