@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Youtube, Video, ListVideo, Clapperboard, Star } from "lucide-react";
+import { Youtube, Video, ListVideo, Clapperboard, Star, Play, Film } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
@@ -93,7 +93,7 @@ const ProfileSection = () => {
               <span>Profiling Videos</span>
             </TabsTrigger>
             <TabsTrigger value="reviews" className="flex items-center gap-2">
-              <Clapperboard className="h-4 w-4" />
+              <Film className="h-4 w-4" />
               <span>Movie Reviews</span>
             </TabsTrigger>
             <TabsTrigger value="personal" className="flex items-center gap-2">
@@ -154,40 +154,71 @@ const ProfileSection = () => {
           <TabsContent value="reviews" className="mt-6">
             <Card className="bg-lightNavy border-lightNavy">
               <CardContent className="pt-6">
+                {/* Featured Movie Section */}
+                <div className="mb-8 bg-gradient-to-r from-lightNavy to-navy p-6 rounded-lg border border-teal/30">
+                  <div className="flex flex-col md:flex-row gap-6">
+                    <div className="md:w-1/3">
+                      <div className="relative rounded-md overflow-hidden shadow-xl">
+                        <img 
+                          src="https://m.media-amazon.com/images/M/MV5BMWU4N2FjNzYtNTVkNC00NzQ0LTg0MjAtYTJlMjFhNGUxZDFmXkEyXkFqcGdeQXVyNjc1NTYyMjg@._V1_.jpg" 
+                          alt="12 Angry Men (1957)" 
+                          className="w-full h-auto"
+                        />
+                        <div className="absolute top-2 right-2">
+                          <div className="bg-black/70 text-yellow-400 px-2 py-1 rounded-md flex items-center gap-1">
+                            <Star className="fill-yellow-400 h-4 w-4" />
+                            <span className="font-bold">9.0</span>
+                          </div>
+                        </div>
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end">
+                          <div className="p-4">
+                            <Button size="sm" variant="outline" className="bg-teal/20 hover:bg-teal/30 text-white border-teal rounded-full">
+                              <Play className="h-4 w-4 mr-1" /> Watch Trailer
+                            </Button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="md:w-2/3">
+                      <h3 className="text-2xl md:text-3xl font-bold text-lightestSlate mb-2 flex items-center gap-2">
+                        12 Angry Men (1957)
+                        <div className="flex text-yellow-400 ml-2">
+                          <Star className="fill-yellow-400 h-5 w-5" />
+                          <Star className="fill-yellow-400 h-5 w-5" />
+                          <Star className="fill-yellow-400 h-5 w-5" />
+                          <Star className="fill-yellow-400 h-5 w-5" />
+                          <Star className="fill-yellow-400 h-5 w-5" />
+                        </div>
+                      </h3>
+                      <div className="flex flex-wrap gap-2 mb-3">
+                        <span className="bg-navy px-2 py-1 text-xs rounded">Crime</span>
+                        <span className="bg-navy px-2 py-1 text-xs rounded">Drama</span>
+                        <span className="bg-navy px-2 py-1 text-xs rounded">Courtroom</span>
+                      </div>
+                      <p className="text-slate mb-4">
+                        <span className="text-teal">Director:</span> Sidney Lumet  |  
+                        <span className="text-teal ml-2">Cast:</span> Henry Fonda, Lee J. Cobb, Martin Balsam
+                      </p>
+                      <p className="text-slate italic mb-4">
+                        "A classic courtroom drama masterpiece that examines human prejudice and the power of reasonable doubt."
+                      </p>
+                      <p className="text-slate">
+                        The defense and the prosecution have rested, and the jury is filing into the jury room to decide if a young man is guilty or innocent of murdering his father. What begins as an open-and-shut case becomes a detective story that presents a succession of clues creating doubt, and a mini-drama of each juror's prejudices and preconceptions about the trial, the accused, and each other.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Review Videos */}
                 <div className="grid gap-6">
-                  {movieReviews.map((review, index) => (
-                    <div key={review.id} className={`border border-lightestNavy p-4 rounded-md ${review.title === '12 Angry Men (1957)' ? 'ring-2 ring-teal' : ''}`}>
+                  {movieReviews.slice(1).map((review, index) => (
+                    <div key={review.id} className="border border-lightestNavy p-4 rounded-md">
                       <h3 className="text-lg font-medium flex items-center gap-2 text-lightestSlate mb-4">
                         <Clapperboard className="h-5 w-5 text-teal" /> Review {index + 1}
                       </h3>
                       
                       <div className="space-y-4">
-                        {review.title && (
-                          <div className={`${review.title === '12 Angry Men (1957)' ? 'bg-lightestNavy/30 p-3 rounded-lg' : ''}`}>
-                            <div className="flex items-center gap-2 mb-2">
-                              {review.title === '12 Angry Men (1957)' && (
-                                <div className="flex text-yellow-400">
-                                  <Star className="fill-yellow-400 h-5 w-5" />
-                                  <Star className="fill-yellow-400 h-5 w-5" />
-                                  <Star className="fill-yellow-400 h-5 w-5" />
-                                  <Star className="fill-yellow-400 h-5 w-5" />
-                                  <Star className="fill-yellow-400 h-5 w-5" />
-                                </div>
-                              )}
-                              <p className={`${review.title === '12 Angry Men (1957)' ? 'text-lightestSlate font-semibold text-lg' : ''}`}>
-                                {review.title === '12 Angry Men (1957)' ? review.title : (
-                                  <><span className="text-teal font-medium">Movie:</span> {review.title}</>
-                                )}
-                              </p>
-                            </div>
-                            {review.title === '12 Angry Men (1957)' && (
-                              <p className="text-slate italic mb-3">
-                                "A classic courtroom drama masterpiece that examines human prejudice and the power of reasonable doubt."
-                              </p>
-                            )}
-                          </div>
-                        )}
-                        
+                        {review.title && <p><span className="text-teal font-medium">Topic:</span> {review.title}</p>}
                         {review.youtubeLink && (
                           <div className="space-y-4">
                             <div className="flex items-center gap-2">
