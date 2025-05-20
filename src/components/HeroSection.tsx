@@ -4,37 +4,10 @@ import { Button } from "@/components/ui/button";
 import { ArrowDown } from "lucide-react";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
-import { AspectRatio } from "@/components/ui/aspect-ratio";
 
 const HeroSection = () => {
-  const [introVideo, setIntroVideo] = useLocalStorage<string>("intro-video", "https://youtu.be/4BSWtmFG_2k?si=NonvXa8e5mZXZHpV");
-  const [newIntroVideo, setNewIntroVideo] = useState("");
-  const [isEditing, setIsEditing] = useState(false);
   const [avatarImage, setAvatarImage] = useLocalStorage<string>("avatar-image", "https://ibb.co/mFRc1Jj");
   
-  // Helper function to extract YouTube ID from URL
-  const getYoutubeEmbedUrl = (url: string) => {
-    if (!url) return null;
-    
-    // Match patterns for YouTube URLs
-    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|shorts\/|watch\?v=|\&v=)([^#\&\?]*).*/;
-    const match = url.match(regExp);
-    
-    if (match && match[2].length === 11) {
-      return `https://www.youtube.com/embed/${match[2]}`;
-    }
-    
-    return null;
-  };
-  
-  const handleSaveVideo = () => {
-    if (newIntroVideo.trim() !== "") {
-      setIntroVideo(newIntroVideo);
-      setNewIntroVideo("");
-      setIsEditing(false);
-    }
-  };
-
   return (
     <section id="hero" className="min-h-screen flex flex-col justify-center pt-20 pb-10">
       <div className="container">
@@ -69,76 +42,6 @@ const HeroSection = () => {
             >
               <a href="#projects">Check out my work</a>
             </Button>
-          </div>
-          
-          {/* Intro Video Section */}
-          <div className="mt-12 pt-6 border-t border-lightNavy opacity-0 animate-fadeIn animate-delay-500">
-            <h3 className="text-xl font-bold text-lightestSlate mb-4">My Intro Video</h3>
-            
-            {isEditing ? (
-              <div className="space-y-4">
-                <div>
-                  <label className="text-sm text-slate block mb-2">YouTube Link:</label>
-                  <div className="flex gap-2">
-                    <input 
-                      type="text" 
-                      placeholder="Paste YouTube link" 
-                      value={newIntroVideo}
-                      onChange={(e) => setNewIntroVideo(e.target.value)}
-                      className="flex h-10 w-full rounded-md border border-lightestNavy bg-navy px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-slate/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                    />
-                    <Button onClick={handleSaveVideo} className="bg-teal text-navy hover:bg-teal/90">
-                      Save
-                    </Button>
-                    <Button variant="outline" onClick={() => setIsEditing(false)} className="border-lightestNavy">
-                      Cancel
-                    </Button>
-                  </div>
-                </div>
-              </div>
-            ) : (
-              <div>
-                {introVideo ? (
-                  <div className="space-y-4">
-                    <div className="rounded-md overflow-hidden">
-                      {getYoutubeEmbedUrl(introVideo) ? (
-                        <AspectRatio ratio={16/9}>
-                          <iframe 
-                            src={getYoutubeEmbedUrl(introVideo)}
-                            title="Intro Video"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                            allowFullScreen 
-                            className="w-full h-full"
-                          />
-                        </AspectRatio>
-                      ) : (
-                        <div className="bg-lightNavy p-4 text-center rounded">
-                          Invalid YouTube URL format
-                        </div>
-                      )}
-                    </div>
-                    <Button 
-                      variant="outline" 
-                      onClick={() => {
-                        setNewIntroVideo(introVideo);
-                        setIsEditing(true);
-                      }}
-                      className="border-teal text-teal hover:bg-teal/10"
-                    >
-                      Change Video
-                    </Button>
-                  </div>
-                ) : (
-                  <Button 
-                    variant="outline" 
-                    onClick={() => setIsEditing(true)}
-                    className="border-teal text-teal hover:bg-teal/10"
-                  >
-                    Add Intro Video
-                  </Button>
-                )}
-              </div>
-            )}
           </div>
         </div>
         <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce hidden md:block">
