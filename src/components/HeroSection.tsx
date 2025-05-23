@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowDown } from "lucide-react";
@@ -12,7 +13,7 @@ const HeroSection = () => {
             <div className="relative">
               <Avatar className="w-48 h-48 border-4 border-teal rounded-full overflow-hidden">
                 <AvatarImage 
-                  src="/lovable-uploads/0bbc693c-a099-4951-b0f9-58e0a0b5e16d.png" 
+                  src="/lovable-uploads/9c2327a2-a2cd-43b8-9976-55d881b8ccf2.png" 
                   alt="Siddhant Bisht Profile" 
                   className="object-cover w-full h-full rounded-full" 
                 />
