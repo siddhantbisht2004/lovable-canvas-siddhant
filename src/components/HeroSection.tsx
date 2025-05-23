@@ -3,11 +3,8 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowDown } from "lucide-react";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import { useLocalStorage } from "@/hooks/useLocalStorage";
 
 const HeroSection = () => {
-  const [avatarImage, setAvatarImage] = useLocalStorage<string>("avatar-image", "https://ibb.co/mFRc1Jj");
-  
   return (
     <section id="hero" className="min-h-screen flex flex-col justify-center pt-20 pb-10">
       <div className="container">
@@ -15,13 +12,14 @@ const HeroSection = () => {
           <div className="flex flex-col md:flex-row items-center gap-8 mb-8">
             <div className="relative">
               <Avatar className="w-40 h-40 border-4 border-teal rounded-full overflow-hidden">
-                {avatarImage ? (
-                  <AvatarImage src={avatarImage} alt="Profile" className="object-cover w-full h-full rounded-full" />
-                ) : (
-                  <AvatarFallback className="bg-lightNavy text-4xl text-teal w-full h-full flex items-center justify-center">
-                    SB
-                  </AvatarFallback>
-                )}
+                <AvatarImage 
+                  src="/lovable-uploads/0bbc693c-a099-4951-b0f9-58e0a0b5e16d.png" 
+                  alt="Siddhant Bisht Profile" 
+                  className="object-cover w-full h-full rounded-full" 
+                />
+                <AvatarFallback className="bg-lightNavy text-4xl text-teal w-full h-full flex items-center justify-center">
+                  SB
+                </AvatarFallback>
               </Avatar>
             </div>
             <div className="text-center md:text-left">
