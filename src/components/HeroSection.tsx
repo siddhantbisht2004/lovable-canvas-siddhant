@@ -14,7 +14,7 @@ const HeroSection = () => {
                 <AvatarImage 
                   src="/lovable-uploads/9c2327a2-a2cd-43b8-9976-55d881b8ccf2.png" 
                   alt="Siddhant Bisht Profile" 
-                  className="object-cover w-full h-full rounded-full object-top" 
+                  className="object-cover w-full h-full rounded-full" 
                 />
                 <AvatarFallback className="bg-lightNavy text-4xl text-teal w-full h-full flex items-center justify-center">
                   SB
