@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowDown } from "lucide-react";
@@ -11,7 +10,7 @@ const HeroSection = () => {
         <div className="max-w-3xl mx-auto space-y-6">
           <div className="flex flex-col md:flex-row items-center gap-8 mb-8">
             <div className="relative">
-              <Avatar className="w-40 h-40 border-4 border-teal rounded-full overflow-hidden">
+              <Avatar className="w-48 h-48 border-4 border-teal rounded-full overflow-hidden">
                 <AvatarImage 
                   src="/lovable-uploads/0bbc693c-a099-4951-b0f9-58e0a0b5e16d.png" 
                   alt="Siddhant Bisht Profile" 
