@@ -1,5 +1,5 @@
-
 import { AspectRatio } from "@/components/ui/aspect-ratio";
+import { Youtube } from "lucide-react";
 
 const AboutSection = () => {
   // Helper function to extract YouTube ID from URL
@@ -30,25 +30,19 @@ const AboutSection = () => {
         </div>
         
         <div className="space-y-12">
-          {/* Introduction Video */}
+          {/* Introduction Video Link */}
           <div className="mb-10">
             <h3 className="text-2xl font-semibold text-lightestSlate mb-4">INTRODUCTION</h3>
-            <div className="rounded-md overflow-hidden">
-              <AspectRatio ratio={16/9} className="bg-lightNavy">
-                {getYoutubeEmbedUrl(introVideoUrl) ? (
-                  <iframe 
-                    src={getYoutubeEmbedUrl(introVideoUrl)}
-                    title="Introduction Video"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                    allowFullScreen 
-                    className="w-full h-full rounded-md"
-                  />
-                ) : (
-                  <div className="flex items-center justify-center h-full">
-                    <p className="text-slate">Video unavailable</p>
-                  </div>
-                )}
-              </AspectRatio>
+            <div className="flex items-center gap-2">
+              <Youtube className="h-5 w-5 text-red-500" />
+              <a 
+                href={introVideoUrl}
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-teal hover:underline break-all"
+              >
+                {introVideoUrl}
+              </a>
             </div>
           </div>
           
