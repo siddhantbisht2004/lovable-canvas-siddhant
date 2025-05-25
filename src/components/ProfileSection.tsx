@@ -6,7 +6,6 @@ import { Youtube, Video, ListVideo, Clapperboard, Star, Play, Film } from "lucid
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
-import { AspectRatio } from "@/components/ui/aspect-ratio";
 
 interface VideoContent {
   id: string;
@@ -60,21 +59,6 @@ const ProfileSection = () => {
   const [selectedVideoIndex, setSelectedVideoIndex] = useState<number | null>(null);
   const [selectedReviewIndex, setSelectedReviewIndex] = useState<number | null>(null);
   const [selectedPersonalVideoIndex, setSelectedPersonalVideoIndex] = useState<number | null>(null);
-  
-  // Helper function to extract YouTube ID from URL
-  const getYoutubeEmbedUrl = (url: string) => {
-    if (!url) return null;
-    
-    // Match patterns for YouTube shorts and regular videos
-    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|shorts\/|watch\?v=|\&v=)([^#\&\?]*).*/;
-    const match = url.match(regExp);
-    
-    if (match && match[2].length === 11) {
-      return `https://www.youtube.com/embed/${match[2]}`;
-    }
-    
-    return null;
-  };
 
   return (
     <section id="profile" className="py-20 bg-navy">
@@ -115,32 +99,16 @@ const ProfileSection = () => {
                       <div className="space-y-4">
                         {video.title && <p><span className="text-teal font-medium">Title:</span> {video.title}</p>}
                         {video.youtubeLink && (
-                          <div className="space-y-4">
-                            <div className="flex items-center gap-2">
-                              <Youtube className="h-5 w-5 text-red-500" />
-                              <a 
-                                href={video.youtubeLink.startsWith('http') ? video.youtubeLink : `https://${video.youtubeLink}`}
-                                target="_blank" 
-                                rel="noopener noreferrer"
-                                className="text-teal hover:underline break-all"
-                              >
-                                {video.youtubeLink}
-                              </a>
-                            </div>
-                            
-                            {getYoutubeEmbedUrl(video.youtubeLink) && (
-                              <div className="rounded-md overflow-hidden">
-                                <AspectRatio ratio={16/9}>
-                                  <iframe 
-                                    src={getYoutubeEmbedUrl(video.youtubeLink)}
-                                    title={video.title || `Video ${index + 1}`}
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                                    allowFullScreen 
-                                    className="w-full h-full"
-                                  />
-                                </AspectRatio>
-                              </div>
-                            )}
+                          <div className="flex items-center gap-2">
+                            <Youtube className="h-5 w-5 text-red-500" />
+                            <a 
+                              href={video.youtubeLink.startsWith('http') ? video.youtubeLink : `https://${video.youtubeLink}`}
+                              target="_blank" 
+                              rel="noopener noreferrer"
+                              className="text-teal hover:underline break-all"
+                            >
+                              {video.youtubeLink}
+                            </a>
                           </div>
                         )}
                       </div>
@@ -220,32 +188,16 @@ const ProfileSection = () => {
                       <div className="space-y-4">
                         {review.title && <p><span className="text-teal font-medium">Topic:</span> {review.title}</p>}
                         {review.youtubeLink && (
-                          <div className="space-y-4">
-                            <div className="flex items-center gap-2">
-                              <Youtube className="h-5 w-5 text-red-500" />
-                              <a 
-                                href={review.youtubeLink.startsWith('http') ? review.youtubeLink : `https://${review.youtubeLink}`}
-                                target="_blank" 
-                                rel="noopener noreferrer"
-                                className="text-teal hover:underline break-all"
-                              >
-                                {review.youtubeLink}
-                              </a>
-                            </div>
-                            
-                            {getYoutubeEmbedUrl(review.youtubeLink) && (
-                              <div className="rounded-md overflow-hidden">
-                                <AspectRatio ratio={16/9}>
-                                  <iframe 
-                                    src={getYoutubeEmbedUrl(review.youtubeLink)}
-                                    title={review.title || `Review ${index + 1}`}
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                                    allowFullScreen 
-                                    className="w-full h-full"
-                                  />
-                                </AspectRatio>
-                              </div>
-                            )}
+                          <div className="flex items-center gap-2">
+                            <Youtube className="h-5 w-5 text-red-500" />
+                            <a 
+                              href={review.youtubeLink.startsWith('http') ? review.youtubeLink : `https://${review.youtubeLink}`}
+                              target="_blank" 
+                              rel="noopener noreferrer"
+                              className="text-teal hover:underline break-all"
+                            >
+                              {review.youtubeLink}
+                            </a>
                           </div>
                         )}
                       </div>
@@ -269,32 +221,16 @@ const ProfileSection = () => {
                       <div className="space-y-4">
                         {video.title && <p><span className="text-teal font-medium">Title:</span> {video.title}</p>}
                         {video.youtubeLink && (
-                          <div className="space-y-4">
-                            <div className="flex items-center gap-2">
-                              <Youtube className="h-5 w-5 text-red-500" />
-                              <a 
-                                href={video.youtubeLink.startsWith('http') ? video.youtubeLink : `https://${video.youtubeLink}`}
-                                target="_blank" 
-                                rel="noopener noreferrer"
-                                className="text-teal hover:underline break-all"
-                              >
-                                {video.youtubeLink}
-                              </a>
-                            </div>
-                            
-                            {getYoutubeEmbedUrl(video.youtubeLink) && (
-                              <div className="rounded-md overflow-hidden">
-                                <AspectRatio ratio={16/9}>
-                                  <iframe 
-                                    src={getYoutubeEmbedUrl(video.youtubeLink)}
-                                    title={video.title || `Video ${index + 1}`}
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                                    allowFullScreen 
-                                    className="w-full h-full"
-                                  />
-                                </AspectRatio>
-                              </div>
-                            )}
+                          <div className="flex items-center gap-2">
+                            <Youtube className="h-5 w-5 text-red-500" />
+                            <a 
+                              href={video.youtubeLink.startsWith('http') ? video.youtubeLink : `https://${video.youtubeLink}`}
+                              target="_blank" 
+                              rel="noopener noreferrer"
+                              className="text-teal hover:underline break-all"
+                            >
+                              {video.youtubeLink}
+                            </a>
                           </div>
                         )}
                       </div>
