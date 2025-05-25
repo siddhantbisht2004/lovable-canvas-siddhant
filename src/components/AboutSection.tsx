@@ -1,7 +1,10 @@
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Youtube } from "lucide-react";
+import { useState } from "react";
 
 const AboutSection = () => {
+  const [showVideo, setShowVideo] = useState(false);
+  
   // Helper function to extract YouTube ID from URL
   const getYoutubeEmbedUrl = (url: string) => {
     if (!url) return null;
@@ -18,6 +21,7 @@ const AboutSection = () => {
   };
   
   const introVideoUrl = "https://youtu.be/4BSWtmFG_2k?si=GL67ThOlBv1ldUDh";
+  const embedUrl = getYoutubeEmbedUrl(introVideoUrl);
 
   return (
     <section id="about" className="py-20 bg-navy">
@@ -33,17 +37,31 @@ const AboutSection = () => {
           {/* Introduction Video Link */}
           <div className="mb-10">
             <h3 className="text-2xl font-semibold text-lightestSlate mb-4">INTRODUCTION</h3>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 mb-4">
               <Youtube className="h-5 w-5 text-red-500" />
-              <a 
-                href={introVideoUrl}
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="text-teal hover:underline break-all"
+              <button 
+                onClick={() => setShowVideo(!showVideo)}
+                className="text-teal hover:underline break-all cursor-pointer"
               >
                 {introVideoUrl}
-              </a>
+              </button>
             </div>
+            
+            {/* Video Player */}
+            {showVideo && embedUrl && (
+              <div className="mt-6">
+                <AspectRatio ratio={16 / 9} className="bg-muted">
+                  <iframe
+                    src={embedUrl}
+                    title="Introduction Video"
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    className="w-full h-full rounded-lg"
+                  />
+                </AspectRatio>
+              </div>
+            )}
           </div>
           
           <div className="space-y-6">
