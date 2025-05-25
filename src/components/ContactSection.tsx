@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
-import { Mail, Phone, MapPin, Send } from "lucide-react";
+import { Mail, MapPin, Send, Github, Linkedin } from "lucide-react";
 
 const ContactSection = () => {
   const [formData, setFormData] = useState({
@@ -54,20 +54,8 @@ const ContactSection = () => {
               </div>
               <div>
                 <h3 className="text-lightestSlate font-medium">Email</h3>
-                <a href="mailto:siddhant.bishte@example.com" className="text-slate hover:text-teal">
-                  siddhant.bishte@example.com
-                </a>
-              </div>
-            </div>
-            
-            <div className="flex items-start">
-              <div className="bg-lightNavy p-3 rounded-full mr-4">
-                <Phone className="text-teal h-5 w-5" />
-              </div>
-              <div>
-                <h3 className="text-lightestSlate font-medium">Phone</h3>
-                <a href="tel:+1234567890" className="text-slate hover:text-teal">
-                  +1 (234) 567-890
+                <a href="mailto:siddhantbisht2008@gmail.com" className="text-slate hover:text-teal">
+                  siddhantbisht2008@gmail.com
                 </a>
               </div>
             </div>
@@ -78,7 +66,31 @@ const ContactSection = () => {
               </div>
               <div>
                 <h3 className="text-lightestSlate font-medium">Location</h3>
-                <p className="text-slate">San Francisco, CA</p>
+                <p className="text-slate">Dehradun</p>
+              </div>
+            </div>
+            
+            <div className="flex items-start">
+              <div className="bg-lightNavy p-3 rounded-full mr-4">
+                <Github className="text-teal h-5 w-5" />
+              </div>
+              <div>
+                <h3 className="text-lightestSlate font-medium">GitHub</h3>
+                <a href="https://github.com/siddhantbisht2004" target="_blank" rel="noopener noreferrer" className="text-slate hover:text-teal">
+                  github.com/siddhantbisht2004
+                </a>
+              </div>
+            </div>
+            
+            <div className="flex items-start">
+              <div className="bg-lightNavy p-3 rounded-full mr-4">
+                <Linkedin className="text-teal h-5 w-5" />
+              </div>
+              <div>
+                <h3 className="text-lightestSlate font-medium">LinkedIn</h3>
+                <a href="https://www.linkedin.com/in/siddhant-bisht-3170b0278/" target="_blank" rel="noopener noreferrer" className="text-slate hover:text-teal">
+                  linkedin.com/in/siddhant-bisht-3170b0278
+                </a>
               </div>
             </div>
           </div>
